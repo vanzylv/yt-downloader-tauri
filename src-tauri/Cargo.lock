@@ -3701,17 +3701,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "tauri-app"
-version = "0.0.0"
-dependencies = [
- "rusty_ytdl",
- "serde",
- "serde_json",
- "tauri",
- "tauri-build",
-]
-
-[[package]]
 name = "tauri-build"
 version = "1.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4871,6 +4860,17 @@ checksum = "09b4ce5349532220906b723b99d6c72dbcc645f4032c5ba30d51d8a26d5fc0c5"
 dependencies = [
  "nom",
  "thiserror",
+]
+
+[[package]]
+name = "yt-downloader-tauri"
+version = "0.0.0"
+dependencies = [
+ "rusty_ytdl",
+ "serde",
+ "serde_json",
+ "tauri",
+ "tauri-build",
 ]
 
 [[package]]

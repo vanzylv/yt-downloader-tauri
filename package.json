@@ -1,5 +1,5 @@
 {
-  "name": "tauri-app",
+  "name": "yt-downloader-tauri",
   "private": true,
   "version": "0.0.0",
   "type": "module",

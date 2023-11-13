@@ -1,7 +1,7 @@
 [package]
-name = "tauri-app"
+name = "yt-downloader-tauri"
 version = "0.0.0"
-description = "A Tauri App"
+description = "A Tauri App that downloads youtube videos"
 authors = ["you"]
 license = ""
 repository = ""
