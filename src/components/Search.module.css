@@ -1,4 +1,11 @@
-.input {
+.searchContainer {
+    display: flex;
+    padding: 15px;
+    align-items: center;
+    justify-content: center;
+}
+.searchInput {
     width: 50%;
+
 }
 

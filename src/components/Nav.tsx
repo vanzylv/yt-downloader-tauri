@@ -1,16 +1,17 @@
-import classes from "./Nav.module.css";
-import {useState} from "react";
-import {Tooltip, UnstyledButton, Stack, rem} from '@mantine/core';
+import classes from './Nav.module.css'
+import { useContext } from 'react'
+import { rem, Stack, Tooltip, UnstyledButton } from '@mantine/core'
+import { IconHome2, IconSettings } from '@tabler/icons-react'
 import {
-    IconHome2,
-    IconSettings,
-} from '@tabler/icons-react';
+    NavigationContext,
+    NavigationContextType,
+} from '../context/NavigationContext.tsx'
 
 interface NavbarLinkProps {
-    icon: any;
-    label: string;
-    active?: boolean;
-    onClick: () => void;
+    icon: any
+    label: string
+    active?: boolean
+    onClick: () => void
 }
 
 function NavbarLink({icon: Icon, label, active, onClick}: NavbarLinkProps) {
@@ -30,14 +31,15 @@ const NavLinks = [
 ];
 
 export function Nav() {
-    const [active, setActive] = useState(2);
+
+    const { selectedPanel, setSelectedPanel  } = useContext<NavigationContextType>(NavigationContext);
 
     const links = NavLinks.map((link, index) => (
         <NavbarLink
             {...link}
             key={link.label}
-            active={index === active}
-            onClick={() => setActive(index)}
+            active={index === selectedPanel}
+            onClick={() => setSelectedPanel(index)}
         />
     ));
 
