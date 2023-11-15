@@ -5,12 +5,15 @@ import '@mantine/core/styles.css'
 import '@mantine/core/styles/global.css'
 import { MantineProvider } from '@mantine/core'
 import { NavigationContextProvider } from './context/NavigationContext.tsx'
+import { SearchContextProvider } from './context/SearchContext.tsx'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
         <MantineProvider>
             <NavigationContextProvider>
-                <App />
+                <SearchContextProvider>
+                    <App />
+                </SearchContextProvider>
             </NavigationContextProvider>
         </MantineProvider>
     </React.StrictMode>

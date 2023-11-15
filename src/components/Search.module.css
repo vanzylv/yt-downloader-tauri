@@ -4,6 +4,12 @@
     align-items: center;
     justify-content: center;
 }
+
+.searchPage {
+    display: flex;
+    padding: 15px;
+    flex-grow:1
+}
 .searchInput {
     width: 50%;
 
