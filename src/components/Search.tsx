@@ -31,17 +31,18 @@ export function Search() {
                 </Button>
             </div>
             <div className={classes.searchContainer}>
-                {loading && (
+                {loading ? (
                     <l-infinity
                         size="50"
                         stroke="5"
                         speed="1"
                         color="teal"
                     ></l-infinity>
-                )}
+                ) : <SearchResults/>}
             </div>
         </div>
     )
 }
 
 import { useContext } from 'react'
+import SearchResults from "./SearchResults.tsx";

@@ -3,10 +3,12 @@ import { Nav } from './components/Nav.tsx'
 import { AppShell } from '@mantine/core'
 import {
     NavigationContext,
-    NavigationContextType, Panel,
+    NavigationContextType,
+    Panel,
 } from './context/NavigationContext.tsx'
 import { useContext } from 'react'
-import Settings from "./components/Settings.tsx";
+import Settings from './components/Settings.tsx'
+import Notify from './components/Notify.tsx'
 
 export function App() {
     const { selectedPanel } =
@@ -18,14 +20,18 @@ export function App() {
             navbar={{ width: 80, breakpoint: 'xs' }}
         >
             <AppShell.Header>
-                <div>Logo</div>
+                <div>
+                    <Notify />
+                </div>
             </AppShell.Header>
 
             <AppShell.Navbar p="md">
                 <Nav />
             </AppShell.Navbar>
 
-            <AppShell.Main>{selectedPanel === Panel.Home ? <Search /> : <Settings/>}</AppShell.Main>
+            <AppShell.Main>
+                {selectedPanel === Panel.Home ? <Search /> : <Settings />}
+            </AppShell.Main>
         </AppShell>
     )
 }

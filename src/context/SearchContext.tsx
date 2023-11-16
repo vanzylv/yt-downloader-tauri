@@ -1,4 +1,9 @@
-import { createContext, ReactNode, useState } from 'react'
+import { createContext, ReactNode, useContext, useState } from 'react'
+import { invoke } from '@tauri-apps/api'
+import {
+    NotificationContext,
+    NotificationContextType, NotificationType,
+} from './NotificationContext.tsx'
 
 export type SearchContextType = {
     searchText: string
@@ -6,6 +11,7 @@ export type SearchContextType = {
     loading: boolean
     setLoading: (loading: boolean) => void
     search: () => void
+    searchResult: Video[]
 }
 
 export const SearchContext = createContext<SearchContextType>({
@@ -14,6 +20,7 @@ export const SearchContext = createContext<SearchContextType>({
     loading: false,
     setLoading: () => {},
     search: () => {},
+    searchResult: [],
 })
 
 type SearchContextProviderProps = {
@@ -25,16 +32,27 @@ export const SearchContextProvider = ({
 }: SearchContextProviderProps) => {
     const [loading, setLoading] = useState<boolean>(false)
     const [searchText, setSearchText] = useState<string>('')
+    const [searchResult, setSearchResult] = useState<Video[]>([])
 
+    const { displayNotification } =
+        useContext<NotificationContextType>(NotificationContext)
     const search = () => {
         setLoading(true)
-        setTimeout(() => {
-            setLoading(false)
-        }, 1000)
+
+        invoke('search', { query: searchText })
+            .then((result) => {
+                setSearchResult(result as Video[]);
+            })
+            .catch((error) => {
+                displayNotification(NotificationType.error, error)
+            })
+            .finally(() => {
+                setLoading(false)
+            })
     }
     return (
         <SearchContext.Provider
-            value={{ searchText, setSearchText, loading, setLoading, search }}
+            value={{ searchText, setSearchText, loading, setLoading, search, searchResult }}
         >
             {children}
         </SearchContext.Provider>
