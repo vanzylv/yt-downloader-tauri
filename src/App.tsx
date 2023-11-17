@@ -9,6 +9,7 @@ import {
 import { useContext } from 'react'
 import Settings from './components/Settings.tsx'
 import Notify from './components/Notify.tsx'
+import ThemeToggle from "./components/ThemeToggle.tsx";
 
 export function App() {
     const { selectedPanel } =
@@ -21,7 +22,7 @@ export function App() {
         >
             <AppShell.Header>
                 <div>
-                    <Notify />
+                    <Notify /><ThemeToggle/>
                 </div>
             </AppShell.Header>
 
