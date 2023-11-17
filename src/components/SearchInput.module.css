@@ -1,9 +1,11 @@
-.searchResultsContainer {
+.searchInput {
+    width: 50%;
+}
+
+.searchContainer {
     display: flex;
     padding: 15px;
     align-items: center;
     justify-content: center;
+    flex-grow: 1;
 }
-
-
-

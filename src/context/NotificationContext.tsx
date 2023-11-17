@@ -1,4 +1,7 @@
-import { createContext, ReactNode, useState } from 'react'
+import { createContext, ReactNode } from 'react'
+import { notifications } from '@mantine/notifications'
+import { IconCheck, IconX } from '@tabler/icons-react'
+import { rem } from '@mantine/core'
 
 export enum NotificationType {
     success = 'success',
@@ -7,19 +10,11 @@ export enum NotificationType {
 }
 
 export type NotificationContextType = {
-    display: boolean
-    type: NotificationType
-    message: string
     displayNotification: (type: NotificationType, message: string) => void
-    hide: () => void
 }
 
 export const NotificationContext = createContext<NotificationContextType>({
-    display: false,
-    type: NotificationType.success,
-    message: '',
     displayNotification: () => {},
-    hide: () => {},
 })
 
 type NavigationProviderProps = {
@@ -29,25 +24,41 @@ type NavigationProviderProps = {
 export const NotificationContextProvider = ({
     children,
 }: NavigationProviderProps) => {
-    const [display, setDisplay] = useState<boolean>(false)
-    const [type, setType] = useState<NotificationType>(NotificationType.success)
-    const [message, setMessage] = useState<string>('')
+    const xIcon = <IconX style={{ width: rem(20), height: rem(20) }} />
+    const checkIcon = <IconCheck style={{ width: rem(20), height: rem(20) }} />
+
     const displayNotification = (type: NotificationType, message: string) => {
-        setDisplay(true)
-        setType(type)
-        setMessage(message)
+        const color =
+            type === NotificationType.success
+                ? 'green'
+                : type === NotificationType.error
+                  ? 'red'
+                  : 'blue'
+        const icon =
+            type === NotificationType.success ||
+            type === NotificationType.notice
+                ? checkIcon
+                : xIcon
+        const title =
+            type === NotificationType.success
+                ? 'Success'
+                : type === NotificationType.notice
+                  ? 'Notice'
+                  : 'Oops'
+
+        notifications.show({
+            title,
+            message,
+            color,
+            autoClose: 3000,
+            icon,
+        })
     }
-
-
 
     return (
         <NotificationContext.Provider
             value={{
                 displayNotification,
-                display,
-                type,
-                message,
-                hide: () => setDisplay(false),
             }}
         >
             {children}

@@ -1,6 +1,6 @@
 import { Search } from './components/Search.tsx'
 import { Nav } from './components/Nav.tsx'
-import { AppShell } from '@mantine/core'
+import { AppShell, Flex } from '@mantine/core'
 import {
     NavigationContext,
     NavigationContextType,
@@ -8,8 +8,8 @@ import {
 } from './context/NavigationContext.tsx'
 import { useContext } from 'react'
 import Settings from './components/Settings.tsx'
-import Notify from './components/Notify.tsx'
-import ThemeToggle from "./components/ThemeToggle.tsx";
+import ThemeToggle from './components/ThemeToggle.tsx'
+import SearchInput from "./components/SearchInput.tsx";
 
 export function App() {
     const { selectedPanel } =
@@ -21,9 +21,16 @@ export function App() {
             navbar={{ width: 80, breakpoint: 'xs' }}
         >
             <AppShell.Header>
-                <div>
-                    <Notify /><ThemeToggle/>
-                </div>
+                <Flex
+                    p={{ xs: 'xs', md: 'md' }}
+                    align="center"
+                    justify="space-between"
+                    style={{ height: '100%' }}
+                >
+                    <h2>YT Downloader 📺</h2>
+                    <SearchInput/>
+                    <ThemeToggle />
+                </Flex>
             </AppShell.Header>
 
             <AppShell.Navbar p="md">

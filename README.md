@@ -4,6 +4,7 @@ History
 Result grid setting
 Text clipping 
 Darkmode + Font
+Favourite
 
 Settings
 - Download location
