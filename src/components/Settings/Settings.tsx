@@ -4,7 +4,7 @@ import {
     NotificationContext,
     NotificationContextType,
     NotificationType,
-} from '../context/NotificationContext.tsx'
+} from '../../context/NotificationContext.tsx'
 
 export default function Settings() {
     const { displayNotification } =

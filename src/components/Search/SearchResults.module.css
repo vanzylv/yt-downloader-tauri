@@ -1,5 +1,7 @@
 .card {
     background-color: var(--mantine-color-body);
+    justify-content: space-between;
+    display: flex;
 }
 
 .footer {
@@ -10,6 +12,5 @@
 }
 
 .title {
-    font-family: Greycliff CF, var(--mantine-font-family);
     line-height: 1;
 }

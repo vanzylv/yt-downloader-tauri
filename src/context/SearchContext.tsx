@@ -41,9 +41,11 @@ export const SearchContextProvider = ({
 
         invoke('search', { query: searchText })
             .then((result) => {
+                console.log('result', result)
                 setSearchResult(result as Video[]);
             })
             .catch((error) => {
+                console.log('error', error)
                 displayNotification(NotificationType.error, error)
             })
             .finally(() => {

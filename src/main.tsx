@@ -21,7 +21,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                 <NavigationContextProvider>
                     <SearchContextProvider>
                         <App />
-                        <Notifications position="top-right" zIndex={1000} />
+                        <Notifications position="bottom-right" zIndex={1000} />
                     </SearchContextProvider>
                 </NavigationContextProvider>
             </NotificationContextProvider>

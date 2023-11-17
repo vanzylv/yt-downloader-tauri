@@ -1,7 +1,7 @@
 import classes from './SearchInput.module.css'
 import { Button, Space, TextInput } from '@mantine/core'
 import { useContext } from 'react'
-import { SearchContext, SearchContextType } from '../context/SearchContext.tsx'
+import { SearchContext, SearchContextType } from '../../context/SearchContext.tsx'
 
 const SearchInput = () => {
     const { loading, searchText, setSearchText, search } =

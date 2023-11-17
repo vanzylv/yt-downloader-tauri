@@ -1,5 +1,5 @@
-import { Search } from './components/Search.tsx'
-import { Nav } from './components/Nav.tsx'
+import { Search } from './components/Search/Search.tsx'
+import { Nav } from './components/Nav/Nav.tsx'
 import { AppShell, Flex } from '@mantine/core'
 import {
     NavigationContext,
@@ -7,9 +7,9 @@ import {
     Panel,
 } from './context/NavigationContext.tsx'
 import { useContext } from 'react'
-import Settings from './components/Settings.tsx'
-import ThemeToggle from './components/ThemeToggle.tsx'
-import SearchInput from "./components/SearchInput.tsx";
+import Settings from './components/Settings/Settings.tsx'
+import ThemeToggle from './components/Theme/ThemeToggle.tsx'
+import SearchInput from "./components/Search/SearchInput.tsx";
 
 export function App() {
     const { selectedPanel } =

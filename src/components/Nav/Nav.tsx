@@ -5,7 +5,7 @@ import { IconHome2, IconSettings } from '@tabler/icons-react'
 import {
     NavigationContext,
     NavigationContextType,
-} from '../context/NavigationContext.tsx'
+} from '../../context/NavigationContext.tsx'
 
 interface NavbarLinkProps {
     icon: any

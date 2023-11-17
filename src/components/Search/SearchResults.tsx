@@ -1,15 +1,15 @@
-import { SearchContext, SearchContextType } from '../context/SearchContext.tsx'
+import { SearchContext, SearchContextType } from '../../context/SearchContext.tsx'
 import { useContext } from 'react'
 
 import { SimpleGrid } from '@mantine/core'
-import VideoCard from './VideoCard.tsx'
+import VideoCard from '../VideCard/VideoCard.tsx'
 
 const SearchResults = () => {
     const { searchResult } = useContext<SearchContextType>(SearchContext)
 
     return (
         <SimpleGrid
-            cols={{ base: 2, sm: 3, lg: 6 }}
+            cols={{ base: 2, sm: 3, lg: 4 }}
             spacing={{ base: 10, sm: 'xl' }}
             verticalSpacing={{ base: 'md', sm: 'xl' }}
         >

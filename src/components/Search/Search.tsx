@@ -1,5 +1,5 @@
 import classes from './Search.module.css'
-import { SearchContext, SearchContextType } from '../context/SearchContext.tsx'
+import { SearchContext, SearchContextType } from '../../context/SearchContext.tsx'
 import { infinity } from 'ldrs'
 import { useContext } from 'react'
 import SearchResults from './SearchResults.tsx'
