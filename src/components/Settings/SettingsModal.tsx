@@ -96,7 +96,6 @@ export const SettingsModal = () => {
                         </ActionIcon>
                     }
                     readOnly
-                    style={{ cursor: 'pointer' }}
                     value={localDownloadDirectory}
                     variant="filled"
                 />

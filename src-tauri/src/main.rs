@@ -1,6 +1,8 @@
-use rusty_ytdl::{Video, VideoDetails};
-use rusty_ytdl::search::YouTube;
+use rusty_ytdl::{Video, VideoOptions, VideoQuality, VideoSearchOptions};
 use rusty_ytdl::search::Video as SearchVideo;
+use rusty_ytdl::search::YouTube;
+use tauri::Window;
+
 /*
     while let Some(chunk) = stream.try_next().await? {
         file.write_all(&chunk).await?;
@@ -17,19 +19,64 @@ use rusty_ytdl::search::Video as SearchVideo;
     Ok(id)
  */
 
+#[derive(Clone, serde::Serialize)]
+struct Payload {
+    message: String,
+}
+
+#[derive(Clone, serde::Serialize)]
+struct ProgressPayload {
+    id: String,
+    progress: u64,
+    total: u64,
+}
+
 #[tauri::command]
-async fn download() -> VideoDetails {
-    let video_url = "https://www.youtube.com/watch?v=FZ8BxMU3BYc"; // FZ8BxMU3BYc works too!
-    let video = Video::new(video_url).unwrap();
-    let video_info = video.get_info().await.unwrap();
-    println!("{:#?}", video_info);
-    return video_info.video_details;
+async fn download(id: String, download_dir: String, window: Window) {
+    println!("id: {}", id);
+    println!("download_dir: {}", download_dir);
+    //println!("window: {}", window);
+
+    let video_options = VideoOptions {
+        quality: VideoQuality::Lowest,
+        filter: VideoSearchOptions::Video,
+        ..Default::default()
+    };
+
+    let video = Video::new_with_options(&id, video_options).unwrap();
+
+    let stream = video.stream().await.unwrap();
+
+    let total = stream.content_length();
+    println!("total: {}", total);
+
+    while let Some(chunk) = stream.chunk().await.unwrap() {
+        // Do what you want with chunks
+        println!("{:#?}", chunk);
+        let _ = window.emit(
+            "download://progress",
+            ProgressPayload {
+                id:"234".to_string(),
+                progress: 123,
+                total: 123,
+            },
+        ).unwrap();
+    }
+
+
+    //}
+
+    println!("done");
+
+    // Or direct download to path
+    let path = std::path::Path::new("/Users/viklass/Downloads/test.mp4");
+
+    video.download(path).await.unwrap();
 }
 
 #[tauri::command]
 async fn search(query: &str) -> Result<Vec<SearchVideo>, ()> {
     let youtube = YouTube::new().unwrap();
-
     let res = youtube.search(r#query, None).await.unwrap();
 
     let mut video_results: Vec<SearchVideo> = Vec::new();

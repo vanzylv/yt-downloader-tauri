@@ -18,7 +18,7 @@ const SearchInput = () => {
                 radius="md"
                 leftSection={<IconSearch />}
                 rightSection={
-                    <ActionIcon onClick={() => setSearchText('')} variant="subtle">
+                    <ActionIcon disabled={!searchText.length} onClick={() => setSearchText('')} variant="subtle">
                         <IconX />
                     </ActionIcon>
                 }
