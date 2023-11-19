@@ -2,7 +2,7 @@ import { SearchContext, SearchContextType } from '../../context/SearchContext.ts
 import { useContext } from 'react'
 
 import { SimpleGrid } from '@mantine/core'
-import VideoCard from '../VideCard/VideoCard.tsx'
+import VideoCard from '../VideoCard/VideoCard.tsx'
 
 const SearchResults = () => {
     const { searchResult } = useContext<SearchContextType>(SearchContext)

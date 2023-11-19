@@ -1,15 +1,21 @@
 use rusty_ytdl::{Video, VideoDetails};
 use rusty_ytdl::search::YouTube;
 use rusty_ytdl::search::Video as SearchVideo;
+/*
+    while let Some(chunk) = stream.try_next().await? {
+        file.write_all(&chunk).await?;
+        let _ = window.emit(
+            "download://progress",
+            ProgressPayload {
+                id,
+                progress: chunk.len() as u64,
+                total,
+            },
+        );
+    }
 
-// Prevents additional console window on Windows in release, DO NOT REMOVE!!
-//#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-
-// Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-#[tauri::command]
-fn greet(name: &str) -> String {
-    format!("Hello, {}! You've been greeted from Rustx!", name)
-}
+    Ok(id)
+ */
 
 #[tauri::command]
 async fn download() -> VideoDetails {
@@ -36,10 +42,10 @@ async fn search(query: &str) -> Result<Vec<SearchVideo>, ()> {
     return Ok(video_results);
 }
 
-
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![greet,download,search])
+        .invoke_handler(tauri::generate_handler![download,search])
+        .plugin(tauri_plugin_store::Builder::default().build())
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

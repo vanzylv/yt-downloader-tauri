@@ -1,44 +1,42 @@
 import { Search } from './components/Search/Search.tsx'
-import { Nav } from './components/Nav/Nav.tsx'
-import { AppShell, Flex } from '@mantine/core'
-import {
-    NavigationContext,
-    NavigationContextType,
-    Panel,
-} from './context/NavigationContext.tsx'
-import { useContext } from 'react'
-import Settings from './components/Settings/Settings.tsx'
+import { ActionIcon, AppShell, Flex, Space } from '@mantine/core'
 import ThemeToggle from './components/Theme/ThemeToggle.tsx'
-import SearchInput from "./components/Search/SearchInput.tsx";
+import SearchInput from './components/Search/SearchInput.tsx'
+import { IconSettings } from '@tabler/icons-react'
+import { ModalContext, ModalContextType } from './context/ModalContext.tsx'
+import { useContext } from 'react'
 
 export function App() {
-    const { selectedPanel } =
-        useContext<NavigationContextType>(NavigationContext)
+    const { showSettingsModal } = useContext<ModalContextType>(ModalContext)
 
     return (
-        <AppShell
-            header={{ height: 60 }}
-            navbar={{ width: 80, breakpoint: 'xs' }}
-        >
+        <AppShell header={{ height: 80 }}>
             <AppShell.Header>
                 <Flex
-                    p={{ xs: 'xs', md: 'md' }}
                     align="center"
                     justify="space-between"
-                    style={{ height: '100%' }}
+                    style={{ height: '100%', padding: '20px' }}
                 >
                     <h2>YT Downloader 📺</h2>
-                    <SearchInput/>
-                    <ThemeToggle />
+                    <SearchInput />
+
+                    <Flex>
+                        <ActionIcon
+                            variant="default"
+                            size="xl"
+                            aria-label="App Settings"
+                            onClick={() => showSettingsModal()}
+                        >
+                            <IconSettings />
+                        </ActionIcon>
+                        <Space w="xs" />
+                        <ThemeToggle />
+                    </Flex>
                 </Flex>
             </AppShell.Header>
 
-            <AppShell.Navbar p="md">
-                <Nav />
-            </AppShell.Navbar>
-
             <AppShell.Main>
-                {selectedPanel === Panel.Home ? <Search /> : <Settings />}
+                <Search />
             </AppShell.Main>
         </AppShell>
     )

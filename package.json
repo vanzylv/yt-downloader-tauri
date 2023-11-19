@@ -16,7 +16,8 @@
     "@tauri-apps/api": "^1.5.0",
     "ldrs": "^1.0.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#v1"
   },
   "devDependencies": {
     "@tabler/icons-react": "^2.40.0",

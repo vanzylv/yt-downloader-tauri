@@ -5,10 +5,14 @@ import '@mantine/core/styles.css'
 import '@mantine/core/styles/global.css'
 import '@mantine/notifications/styles.css'
 import { MantineProvider } from '@mantine/core'
-import { NavigationContextProvider } from './context/NavigationContext.tsx'
 import { SearchContextProvider } from './context/SearchContext.tsx'
 import { NotificationContextProvider } from './context/NotificationContext.tsx'
 import { Notifications } from '@mantine/notifications'
+import { ModalContextProvider } from './context/ModalContext.tsx'
+import SettingsModal from './components/Settings/SettingsModal.tsx'
+import { Store } from 'tauri-plugin-store-api'
+
+export const store = new Store('.settings.dat')
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
@@ -17,14 +21,15 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                 fontFamily: 'Avenir, Helvetica',
             }}
         >
-            <NotificationContextProvider>
-                <NavigationContextProvider>
+            <ModalContextProvider>
+                <NotificationContextProvider>
                     <SearchContextProvider>
                         <App />
                         <Notifications position="bottom-right" zIndex={1000} />
+                        <SettingsModal />
                     </SearchContextProvider>
-                </NavigationContextProvider>
-            </NotificationContextProvider>
+                </NotificationContextProvider>
+            </ModalContextProvider>
         </MantineProvider>
     </React.StrictMode>
 )
