@@ -2,11 +2,10 @@ import { IconDownload, IconHeart, IconInfoCircle } from '@tabler/icons-react'
 import { ActionIcon } from '@mantine/core'
 import { invoke } from '@tauri-apps/api'
 
-const VideoControls = () => {
-    const startDownload = async () => {
+const VideoControls = ({ id }: { id: string }) => {
+    const startDownload = async (id: string) => {
         await invoke('download', {
-            id: 'FZ8BxMU3BYc',
-            downloadDir: '/Users/Viklass/Downloads',
+            id,
         })
     }
 
@@ -16,7 +15,7 @@ const VideoControls = () => {
                 <IconHeart />
             </ActionIcon>
             <ActionIcon
-                onClick={() => startDownload()}
+                onClick={() => startDownload(id)}
                 variant="subtle"
                 size="md"
             >

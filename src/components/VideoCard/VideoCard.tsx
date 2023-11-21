@@ -72,7 +72,7 @@ const VideoCard = ({ video }: { video: Video }) => {
                                 </Text>
                                 <IconEye />
                             </Flex>
-                            <VideoControls />
+                            <VideoControls id={video.id} />
                         </Group>
                     </Card.Section>
                 </Card>
