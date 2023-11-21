@@ -28,6 +28,7 @@ async fn download(id: String, window: Window, app: AppHandle) {
             .unwrap())
     }).unwrap();
 
+    //Create settings for these.
     println!("download_dir: {}", download_dir);
     let video_options = VideoOptions {
         quality: VideoQuality::Highest,
@@ -44,11 +45,6 @@ async fn download(id: String, window: Window, app: AppHandle) {
 
     println!("total: {}", total);
 
-
-    let video_info = video.get_info().await.unwrap();
-    println!("formats{:?}", video_info.formats);
-
-
     while let Some(chunk) = stream.chunk().await.unwrap() {
         let window = window.clone();
         let id = id.clone();
@@ -64,6 +60,9 @@ async fn download(id: String, window: Window, app: AppHandle) {
             ).unwrap();
         });
     }
+
+    //Move to the UI
+    let video_info = video.get_info().await.unwrap();
 
     let mut clean_file_name = sanitize_with_options(video_info.video_details.title, sanitize_filename::Options {
         truncate: true,
