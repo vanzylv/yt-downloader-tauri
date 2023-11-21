@@ -32,15 +32,6 @@ const SearchInput = () => {
                     }
                 }}
             />
-            {/*<Space w="md" />*/}
-            {/*<Button*/}
-            {/*    onClick={() => search()}*/}
-            {/*    variant="filled"*/}
-            {/*    color="teal"*/}
-            {/*    loading={loading}*/}
-            {/*>*/}
-            {/*    Search*/}
-            {/*</Button>*/}
         </div>
     )
 }

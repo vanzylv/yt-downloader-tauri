@@ -3,7 +3,6 @@ use std::path::{Path, PathBuf};
 use rusty_ytdl::{DownloadOptions, Video, VideoOptions, VideoQuality, VideoSearchOptions};
 use rusty_ytdl::search::Video as SearchVideo;
 use rusty_ytdl::search::YouTube;
-use sanitize_filename::sanitize_with_options;
 use tauri::{AppHandle, Manager, Window, Wry};
 use tauri_plugin_store::{StoreCollection, with_store};
 
@@ -15,8 +14,9 @@ struct ProgressPayload {
 }
 
 #[tauri::command]
-async fn download(id: String, window: Window, app: AppHandle) {
+async fn download(id: String, file_name: String, window: Window, app: AppHandle) {
     println!("id: {}", id);
+    println!("filename: {}", file_name);
 
     let stores = app.state::<StoreCollection<Wry>>();
     let path = PathBuf::from(".settings.dat");
@@ -30,6 +30,7 @@ async fn download(id: String, window: Window, app: AppHandle) {
 
     //Create settings for these.
     println!("download_dir: {}", download_dir);
+
     let video_options = VideoOptions {
         quality: VideoQuality::Highest,
         filter: VideoSearchOptions::VideoAudio,
@@ -43,7 +44,7 @@ async fn download(id: String, window: Window, app: AppHandle) {
     let stream = video.stream().await.unwrap();
     let total = stream.content_length();
 
-    println!("total: {}", total);
+    println!("total size: {}", total);
 
     while let Some(chunk) = stream.chunk().await.unwrap() {
         let window = window.clone();
@@ -61,21 +62,9 @@ async fn download(id: String, window: Window, app: AppHandle) {
         });
     }
 
-    //Move to the UI
-    let video_info = video.get_info().await.unwrap();
-
-    let mut clean_file_name = sanitize_with_options(video_info.video_details.title, sanitize_filename::Options {
-        truncate: true,
-        replacement: "_",
-        windows: true,
-        ..Default::default()
-    });
-    clean_file_name.push_str(".mp4");
-    let path = Path::new(&download_dir).join(&clean_file_name);
-
+    let path = Path::new(&download_dir).join(file_name);
     video.download(path).await.unwrap();
-
-    println!("done");
+    println!("download done!");
 }
 
 #[tauri::command]

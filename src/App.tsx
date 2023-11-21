@@ -2,7 +2,7 @@ import { Search } from './components/Search/Search.tsx'
 import { ActionIcon, AppShell, Flex, Space } from '@mantine/core'
 import ThemeToggle from './components/Theme/ThemeToggle.tsx'
 import SearchInput from './components/Search/SearchInput.tsx'
-import { IconSettings } from '@tabler/icons-react'
+import { IconFolderOpen, IconSettings } from '@tabler/icons-react'
 import { ModalContext, ModalContextType } from './context/ModalContext.tsx'
 import { useContext } from 'react'
 
@@ -21,6 +21,15 @@ export function App() {
                     <SearchInput />
 
                     <Flex>
+                        <ActionIcon
+                            variant="default"
+                            size="xl"
+                            aria-label="App Settings"
+                            onClick={() => showSettingsModal()}
+                        >
+                            <IconFolderOpen />
+                        </ActionIcon>
+                        <Space w="xs" />
                         <ActionIcon
                             variant="default"
                             size="xl"
