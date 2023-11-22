@@ -12,6 +12,7 @@ import { Notifications } from '@mantine/notifications'
 import { ModalContextProvider } from './context/ModalContext.tsx'
 import SettingsModal from './components/Settings/SettingsModal.tsx'
 import { Store } from 'tauri-plugin-store-api'
+import { VideoContextProvider } from './context/VideoContext.tsx'
 
 export const store = new Store('.settings.dat')
 
@@ -25,9 +26,14 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
             <ModalContextProvider>
                 <NotificationContextProvider>
                     <SearchContextProvider>
-                        <App />
-                        <Notifications position="bottom-right" zIndex={1000} />
-                        <SettingsModal />
+                        <VideoContextProvider>
+                            <App />
+                            <Notifications
+                                position="bottom-right"
+                                zIndex={1000}
+                            />
+                            <SettingsModal />
+                        </VideoContextProvider>
                     </SearchContextProvider>
                 </NotificationContextProvider>
             </ModalContextProvider>
