@@ -1,5 +1,6 @@
 import { invoke } from '@tauri-apps/api'
 import filenamify from 'filenamify'
+import { Video } from '../types/api.ts'
 
 export const downloadVideo = async (video: Video) => {
     const { id } = video
@@ -9,6 +10,10 @@ export const downloadVideo = async (video: Video) => {
     })
 }
 
-export const searchVideos = async (searchText: string) : Promise<Video[]> => {
+export const searchVideos = async (searchText: string): Promise<Video[]> => {
     return await invoke('search', { query: searchText })
+}
+
+export const openFolder = async (path: string) => {
+    return await invoke('show_in_folder', {path})
 }

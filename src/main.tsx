@@ -27,7 +27,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                         <VideoContextProvider>
                             <App />
                             <Notifications
-                                position="bottom-right"
+                                position="top-right"
                                 zIndex={1000}
                             />
                         </VideoContextProvider>
