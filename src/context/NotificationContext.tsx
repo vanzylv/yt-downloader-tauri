@@ -52,6 +52,7 @@ export const NotificationContextProvider = ({
             color,
             autoClose: 3000,
             icon,
+            withBorder: true,
         })
     }
 

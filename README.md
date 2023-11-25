@@ -1,6 +1,4 @@
-
 TO DO
-- Centralize all settings
 - Action button tooltips
 - No Results message
 - GHA, create release

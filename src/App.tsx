@@ -10,25 +10,18 @@ import {
 import ThemeToggle from './components/Theme/ThemeToggle.tsx'
 import SearchInput from './components/Search/SearchInput.tsx'
 import { IconFolderOpen, IconSettings } from '@tabler/icons-react'
-import { ModalContext, ModalContextType } from './context/ModalContext.tsx'
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import SettingsModal from './components/Settings/SettingsModal.tsx'
 import logo from './assets/header-image.png'
 import { openFolder } from './tauri/commands.ts'
-import { store } from './main.tsx'
-import { StorageKey } from './types/app.ts'
+import {
+    SettingsContext,
+    SettingsContextType,
+} from './context/SettingsContext.tsx'
 
 export function App() {
-    const { showSettingsModal, settingsVisible } =
-        useContext<ModalContextType>(ModalContext)
-
-    const [downloadDir, setDownloadDir] = useState<string>('')
-
-    useEffect(() => {
-        store.get(StorageKey.DOWNLOAD_DIRECTORY).then((dir) => {
-            setDownloadDir(dir as string)
-        })
-    }, [])
+    const { settingsVisible, showSettingsModal, downloadDirectory } =
+        useContext<SettingsContextType>(SettingsContext)
 
     return (
         <AppShell header={{ height: 80 }}>
@@ -47,9 +40,13 @@ export function App() {
                                 variant="default"
                                 size="xl"
                                 aria-label="App Settings"
-                                onClick={async () =>
-                                    await openFolder(downloadDir)
-                                }
+                                onClick={async () => {
+                                    console.log(
+                                        'Opening download directory',
+                                        downloadDirectory
+                                    );
+                                    await openFolder(downloadDirectory)
+                                }}
                             >
                                 <IconFolderOpen />
                             </ActionIcon>

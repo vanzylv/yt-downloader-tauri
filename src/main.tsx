@@ -8,9 +8,9 @@ import { MantineProvider } from '@mantine/core'
 import { SearchContextProvider } from './context/SearchContext.tsx'
 import { NotificationContextProvider } from './context/NotificationContext.tsx'
 import { Notifications } from '@mantine/notifications'
-import { ModalContextProvider } from './context/ModalContext.tsx'
 import { Store } from 'tauri-plugin-store-api'
 import { VideoContextProvider } from './context/VideoContext.tsx'
+import { SettingsContextProvider } from './context/SettingsContext.tsx'
 
 export const store = new Store('.settings.dat')
 
@@ -21,19 +21,16 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                 fontFamily: 'Avenir, Helvetica',
             }}
         >
-            <ModalContextProvider>
+            <SettingsContextProvider>
                 <NotificationContextProvider>
                     <SearchContextProvider>
                         <VideoContextProvider>
                             <App />
-                            <Notifications
-                                position="top-right"
-                                zIndex={1000}
-                            />
+                            <Notifications position="top-right" zIndex={1000} />
                         </VideoContextProvider>
                     </SearchContextProvider>
                 </NotificationContextProvider>
-            </ModalContextProvider>
+            </SettingsContextProvider>
         </MantineProvider>
     </React.StrictMode>
 )
