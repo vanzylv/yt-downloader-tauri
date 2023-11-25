@@ -1,9 +1,11 @@
 import { createContext, ReactNode, useContext, useState } from 'react'
-import { invoke } from '@tauri-apps/api'
 import {
     NotificationContext,
-    NotificationContextType, NotificationType,
+    NotificationContextType,
+    NotificationType,
 } from './NotificationContext.tsx'
+import { searchVideos } from '../tauri/commands.ts'
+import {Video} from "../types/api.ts";
 
 export type SearchContextType = {
     searchText: string
@@ -16,10 +18,13 @@ export type SearchContextType = {
 
 export const SearchContext = createContext<SearchContextType>({
     searchText: '',
-    setSearchText: () => {},
+    setSearchText: () => {
+    },
     loading: false,
-    setLoading: () => {},
-    search: () => {},
+    setLoading: () => {
+    },
+    search: () => {
+    },
     searchResult: [],
 })
 
@@ -28,33 +33,30 @@ type SearchContextProviderProps = {
 }
 
 export const SearchContextProvider = ({
-    children,
-}: SearchContextProviderProps) => {
+                                          children,
+                                      }: SearchContextProviderProps) => {
     const [loading, setLoading] = useState<boolean>(false)
     const [searchText, setSearchText] = useState<string>('')
     const [searchResult, setSearchResult] = useState<Video[]>([])
 
-    const { displayNotification } =
+    const {displayNotification} =
         useContext<NotificationContextType>(NotificationContext)
-    const search = () => {
+    const search = async () => {
         setLoading(true)
-
-        invoke('search', { query: searchText })
-            .then((result) => {
-                console.log('result', result)
-                setSearchResult(result as Video[]);
-            })
-            .catch((error) => {
-                console.log('error', error)
-                displayNotification(NotificationType.error, error)
-            })
-            .finally(() => {
-                setLoading(false)
-            })
+        try {
+            const result = await searchVideos(searchText)
+            setSearchResult(result as Video[]);
+        } catch (error) {
+            console.log('error', error)
+            displayNotification(NotificationType.error, error as string)
+        } finally {
+            setLoading(false)
+        }
     }
+
     return (
         <SearchContext.Provider
-            value={{ searchText, setSearchText, loading, setLoading, search, searchResult }}
+            value={{searchText, setSearchText, loading, setLoading, search, searchResult}}
         >
             {children}
         </SearchContext.Provider>

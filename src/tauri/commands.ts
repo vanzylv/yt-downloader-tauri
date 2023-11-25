@@ -8,3 +8,7 @@ export const downloadVideo = async (video: Video) => {
         fileName: `${filenamify(video.title)}.mp4`,
     })
 }
+
+export const searchVideos = async (searchText: string) : Promise<Video[]> => {
+    return await invoke('search', { query: searchText })
+}

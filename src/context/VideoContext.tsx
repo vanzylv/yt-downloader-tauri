@@ -5,6 +5,7 @@ import {
     NotificationContextType,
     NotificationType,
 } from './NotificationContext.tsx'
+import {Video} from "../types/api.ts";
 
 export type VideoContextType = {
     downloadVideo: (video: Video, loadingCallback: (b: boolean) => void) => void

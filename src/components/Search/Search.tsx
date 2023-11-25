@@ -1,10 +1,11 @@
 import classes from './Search.module.css'
-import { SearchContext, SearchContextType } from '../../context/SearchContext.tsx'
-import { infinity } from 'ldrs'
+import {
+    SearchContext,
+    SearchContextType,
+} from '../../context/SearchContext.tsx'
 import { useContext } from 'react'
 import SearchResults from './SearchResults.tsx'
-
-infinity.register()
+import {Center, Loader} from '@mantine/core'
 
 export function Search() {
     const { loading } = useContext<SearchContextType>(SearchContext)
@@ -13,12 +14,13 @@ export function Search() {
         <>
             <div className={classes.searchResultsContainer}>
                 {loading ? (
-                    <l-infinity
-                        size="50"
-                        stroke="5"
-                        speed="1"
-                        color="teal"
-                    ></l-infinity>
+                    <Center
+                        style={{
+                            height: 'calc(100vh - 200px)',
+                        }}
+                    >
+                        <Loader color="blue" type="bars" />
+                    </Center>
                 ) : (
                     <SearchResults />
                 )}

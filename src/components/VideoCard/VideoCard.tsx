@@ -11,13 +11,14 @@ import {
 import { useEffect, useState } from 'react'
 import VideoControls from './VideoControls.tsx'
 import { IconClock, IconEye } from '@tabler/icons-react'
+import { Video } from '../../types/api.ts'
 
 const VideoCard = ({ video }: { video: Video }) => {
     const [opened, setOpened] = useState(false)
 
     useEffect(() => {
         setOpened(true)
-    },[])
+    }, [])
 
     const d = new Date(Date.UTC(0, 0, 0, 0, 0, 0, video.duration)),
         parts = [d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds()],
@@ -72,7 +73,9 @@ const VideoCard = ({ video }: { video: Video }) => {
                                 </Text>
                                 <IconEye />
                             </Flex>
-                            <VideoControls video={video} />
+                            <Flex>
+                                <VideoControls video={video} />
+                            </Flex>
                         </Group>
                     </Card.Section>
                 </Card>

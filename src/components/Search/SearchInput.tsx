@@ -25,7 +25,7 @@ const SearchInput = () => {
                 onChange={(event) => setSearchText(event.currentTarget.value)}
                 value={searchText}
                 className={classes.searchInput}
-                placeholder="Search YouTube"
+                placeholder="Search YouTube, paste a link or video id"
                 onKeyDown={(event) => {
                     if (event.key === 'Enter') {
                         search()

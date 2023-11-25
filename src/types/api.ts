@@ -13,7 +13,7 @@ interface Channel {
     subscribers: number;
 }
 
-interface Video {
+export interface Video {
     id: string;
     url: string;
     title: string;
@@ -24,5 +24,14 @@ interface Video {
     channel: Channel;
     uploaded_at?: string;
     views: number;
+}
+
+export enum Event {
+    DOWNLOAD_PROGRESS = 'download_progress_',
+}
+
+export interface DownloadProgressEvent {
+    id: string;
+    progress: number;
 }
 
