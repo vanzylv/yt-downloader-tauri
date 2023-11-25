@@ -1,11 +1,12 @@
 import { Search } from './components/Search/Search.tsx'
-import { ActionIcon, AppShell, Flex, Space } from '@mantine/core'
+import { ActionIcon, AppShell, Flex, Image, Space } from '@mantine/core'
 import ThemeToggle from './components/Theme/ThemeToggle.tsx'
 import SearchInput from './components/Search/SearchInput.tsx'
 import { IconFolderOpen, IconSettings } from '@tabler/icons-react'
 import { ModalContext, ModalContextType } from './context/ModalContext.tsx'
 import { useContext } from 'react'
 import SettingsModal from './components/Settings/SettingsModal.tsx'
+import logo from './assets/header-image.png'
 
 export function App() {
     const { showSettingsModal, settingsVisible } =
@@ -19,7 +20,17 @@ export function App() {
                     justify="space-between"
                     style={{ height: '100%', padding: '20px' }}
                 >
-                    <h2>YT Downloader 📺</h2>
+
+                    <Image
+                        height={30}
+                        radius="md"
+                        w="auto"
+                        fit="contain"
+                        src={logo}
+                    />
+                    <Space w="sm" />
+                    <h2>YT Downloader</h2>
+
                     <SearchInput />
 
                     <Flex>

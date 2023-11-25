@@ -1,23 +1,16 @@
-Tests
-Paste url
-History
-Result grid setting
 
-Favourite
-Set download directory when none is set alert
-Preview
-Space searching bug
-Overlay Preview
-Action button tooltips
-
-Settings
-- Download location
-- Video Quality
-- No Results
+TO DO
+- Set download directory when none is set alert
+- Action button tooltips
+- No Results message
+- GHA, create release
 - About (Libs, etc)
+
+Later perhaps
+- Overlay Preview
+- Preview
+- History
+- Result grid setting
+- Tests
 - Auto update
-
-GHA, create release
-
-Tweak
-- Scroll to top
+- Settings Num results
