@@ -5,9 +5,11 @@ import SearchInput from './components/Search/SearchInput.tsx'
 import { IconFolderOpen, IconSettings } from '@tabler/icons-react'
 import { ModalContext, ModalContextType } from './context/ModalContext.tsx'
 import { useContext } from 'react'
+import SettingsModal from './components/Settings/SettingsModal.tsx'
 
 export function App() {
-    const { showSettingsModal } = useContext<ModalContextType>(ModalContext)
+    const { showSettingsModal, settingsVisible } =
+        useContext<ModalContextType>(ModalContext)
 
     return (
         <AppShell header={{ height: 80 }}>
@@ -46,6 +48,7 @@ export function App() {
 
             <AppShell.Main>
                 <Search />
+                {settingsVisible && <SettingsModal />}
             </AppShell.Main>
         </AppShell>
     )

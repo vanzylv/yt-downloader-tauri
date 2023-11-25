@@ -1,35 +1,57 @@
-import { Box, Button, Divider, Flex, Modal, Stack } from '@mantine/core'
-import { useContext } from 'react'
+import { Button, Flex, Modal, Space, Stack } from '@mantine/core'
+import { useContext, useEffect, useState } from 'react'
 import { ModalContext, ModalContextType } from '../../context/ModalContext.tsx'
-import { IconFolder } from '@tabler/icons-react'
 import DownloadDirectory from './DownloadDirectory.tsx'
+import { store } from '../../main.tsx'
+import { StorageKey } from '../../types/app.ts'
+import VideoQuality, { VideoQualityType } from './VideoQuality.tsx'
 
 export const SettingsModal = () => {
-    const { settingsVisible, hideDialog } =
-        useContext<ModalContextType>(ModalContext)
+    const { hideDialog } = useContext<ModalContextType>(ModalContext)
+    const noDirectorySelected = 'No download directory selected!'
+    const [downloadDirectory, setDownloadDirectory] =
+        useState<string>(noDirectorySelected)
+    const [videoQuality, setVideoQuality] = useState<VideoQualityType>(
+        VideoQualityType.Highest
+    )
+
+    useEffect(() => {
+        store.get(StorageKey.DOWNLOAD_DIRECTORY).then((value) => {
+            setDownloadDirectory((value as string) ?? noDirectorySelected)
+        })
+
+        store.get(StorageKey.VIDEO_QUALITY).then((value) => {
+            setVideoQuality(
+                (value as VideoQualityType) ?? VideoQualityType.Highest
+            )
+        })
+    }, [])
+
+    const saveSettings = async () => {
+        await store.set(StorageKey.DOWNLOAD_DIRECTORY, downloadDirectory)
+        await store.set(StorageKey.VIDEO_QUALITY, videoQuality)
+    }
 
     return (
         <Modal
+            opened
             size="lg"
-            opened={settingsVisible}
             radius="10"
             onClose={() => {
                 hideDialog()
             }}
             title="App Settings"
         >
-            <h2>Settings</h2>
-            <Divider
-                my="sm"
-                label={
-                    <>
-                        <IconFolder />
-                        <Box ml="5">Downloads</Box>
-                    </>
-                }
+            <DownloadDirectory
+                setDownloadDirectory={setDownloadDirectory}
+                downloadDirectory={downloadDirectory}
             />
-            <DownloadDirectory />
-            <Stack h="md" />
+            <Space h="md" />
+            <VideoQuality
+                videoQuality={videoQuality}
+                setVideoQuality={setVideoQuality}
+            />
+            <Space h="xl" />
             <Stack>
                 <Flex justify="end" align="end">
                     <Button
@@ -42,6 +64,7 @@ export const SettingsModal = () => {
                     <Button
                         variant="subtle"
                         onClick={async () => {
+                            await saveSettings()
                             hideDialog()
                         }}
                     >

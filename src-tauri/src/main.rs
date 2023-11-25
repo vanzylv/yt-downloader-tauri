@@ -18,21 +18,21 @@ async fn download(id: String, file_name: String, window: Window, app: AppHandle)
     println!("id: {}", id);
     println!("filename: {}", file_name);
 
-    let stores = app.state::<StoreCollection<Wry>>();
-    let path = PathBuf::from(".settings.dat");
-
-    let download_dir = with_store(app.app_handle().to_owned(), stores, path, |store| {
-        Ok(store
-            .get("downloadDirectory")
-            .and_then(|val| val.as_str().map(|s| s.to_string()))
-            .unwrap())
-    }).unwrap();
-
-    //Create settings for these.
+    let download_dir = fetch_setting(&app,"downloadDirectory".to_string());
     println!("download_dir: {}", download_dir);
 
+    let video_quality = fetch_setting(&app,"videoQuality".to_string());
+    println!("video_quality: {}", video_quality);
+
+    //select the video quality enum based on the video quality string
+    let video_quality_enum = match video_quality.as_str() {
+        "Highest" => VideoQuality::Highest,
+        "Lowest" => VideoQuality::Lowest,
+        _ => VideoQuality::HighestVideo,
+    };
+
     let video_options = VideoOptions {
-        quality: VideoQuality::Highest,
+        quality: video_quality_enum,
         filter: VideoSearchOptions::VideoAudio,
         download_options: DownloadOptions {
             dl_chunk_size: Some(1024 * 1024 * 5_u64),
@@ -65,6 +65,19 @@ async fn download(id: String, file_name: String, window: Window, app: AppHandle)
     let path = Path::new(&download_dir).join(file_name);
     video.download(path).await.unwrap();
     println!("download done!");
+}
+
+fn fetch_setting(app: &AppHandle, key: String) -> String {
+    let stores = app.state::<StoreCollection<Wry>>();
+    let path = PathBuf::from(".settings.dat");
+
+    let store_value = with_store(app.app_handle().to_owned(), stores, path, |store| {
+        Ok(store
+            .get(key)
+            .and_then(|val| val.as_str().map(|s| s.to_string()))
+            .unwrap())
+    }).unwrap();
+    store_value
 }
 
 #[tauri::command]

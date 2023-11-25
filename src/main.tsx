@@ -10,7 +10,6 @@ import { SearchContextProvider } from './context/SearchContext.tsx'
 import { NotificationContextProvider } from './context/NotificationContext.tsx'
 import { Notifications } from '@mantine/notifications'
 import { ModalContextProvider } from './context/ModalContext.tsx'
-import SettingsModal from './components/Settings/SettingsModal.tsx'
 import { Store } from 'tauri-plugin-store-api'
 import { VideoContextProvider } from './context/VideoContext.tsx'
 
@@ -32,7 +31,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                                 position="bottom-right"
                                 zIndex={1000}
                             />
-                            <SettingsModal />
                         </VideoContextProvider>
                     </SearchContextProvider>
                 </NotificationContextProvider>
