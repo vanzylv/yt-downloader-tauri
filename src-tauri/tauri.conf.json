@@ -7,8 +7,8 @@
     "withGlobalTauri": false
   },
   "package": {
-    "productName": "yt-downloader-tauri",
-    "version": "0.0.0"
+    "productName": "Youtube downloader with Tauri",
+    "version": "0.0.1"
   },
   "tauri": {
     "allowlist": {
@@ -27,9 +27,10 @@
       }
     },
     "bundle": {
+      "category": "Video",
       "active": true,
       "targets": "all",
-      "identifier": "com.tauri.dev",
+      "identifier": "com.vanzylv.dev",
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",

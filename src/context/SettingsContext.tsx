@@ -41,15 +41,23 @@ export const SettingsContextProvider = ({
                 setDownloadDirectory(value as string)
             } else {
                 fetchDefaultDownloadDirectory().then((dir) => {
-                    setDownloadDirectory(dir as string)
+                    store.set(StorageKey.DOWNLOAD_DIRECTORY, dir).then(() => {
+                        setDownloadDirectory(value as string)
+                    })
                 })
             }
         })
 
         store.get(StorageKey.VIDEO_QUALITY).then((value) => {
-            setVideoQuality(
-                (value as VideoQualityType) ?? VideoQualityType.Highest
-            )
+            if (!!value) {
+                setVideoQuality(value as VideoQualityType)
+            } else {
+                store
+                    .set(StorageKey.VIDEO_QUALITY, VideoQualityType.Highest)
+                    .then(() => {
+                        setVideoQuality(VideoQualityType.Highest)
+                    })
+            }
         })
     }, [])
 
