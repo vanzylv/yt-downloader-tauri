@@ -1,10 +1,10 @@
 [package]
 name = "yt-downloader-tauri"
-version = "0.0.0"
+version = "0.0.1"
 description = "A Tauri App that downloads youtube videos"
-authors = ["you"]
+authors = ["@vanzylv"]
 license = ""
-repository = ""
+repository = "https://github.com/vanzylv/yt-downloader-tauri"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
