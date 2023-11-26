@@ -1,6 +1,6 @@
 use std::path::{Path, PathBuf};
 #[cfg(target_os = "linux")]
-use std::{fs::metadata, path::PathBuf};
+use std::{fs::metadata};
 use std::process::Command;
 #[cfg(target_os = "linux")]
 use fork::{daemon, Fork};
