@@ -3,6 +3,8 @@ TO DO
 - No Results message
 - GHA, create release
 - About (Libs, etc)
+- Windows directory bug
+- Windows command window
 
 Later perhaps
 - Overlay Preview

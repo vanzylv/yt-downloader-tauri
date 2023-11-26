@@ -40,13 +40,9 @@ export function App() {
                                 variant="default"
                                 size="xl"
                                 aria-label="App Settings"
-                                onClick={async () => {
-                                    console.log(
-                                        'Opening download directory',
-                                        downloadDirectory
-                                    );
+                                onClick={async () =>
                                     await openFolder(downloadDirectory)
-                                }}
+                                }
                             >
                                 <IconFolderOpen />
                             </ActionIcon>
