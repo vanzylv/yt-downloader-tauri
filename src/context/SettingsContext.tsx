@@ -42,7 +42,7 @@ export const SettingsContextProvider = ({
             } else {
                 fetchDefaultDownloadDirectory().then((dir) => {
                     store.set(StorageKey.DOWNLOAD_DIRECTORY, dir).then(() => {
-                        setDownloadDirectory(value as string)
+                        setDownloadDirectory(dir as string)
                     })
                 })
             }
